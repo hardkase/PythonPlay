@@ -1,63 +1,68 @@
-#second try
+#second try on Dec to Roman conversion. This version works.
+#simple, brute force method using subtraction.
+import sys
 import math
 RomanString =""
-RunApp = True
-while RunApp is not False:
-	usernum = int(input("Enter a number between 1 and 3999. Enter '0' to Quit"))
-	ognum = usernum
-	if usernum == 0: 
-		RunApp = False
-	elif (usernum > 3999) or (usernum < 0):
+inputString = ""
+inputText = open("decimal.txt", "rt")
+inputList = list()
+for x in inputText:
+	print(x)
+	inputList.append(x)
+for y in inputList:
+	rawInput = y
+	input = int(rawInput)
+	ognum = input
+	if (input > 3999) or (input < 0):
 		print("Number to big or is negative, try again!")
-	elif math.isnan(usernum) is not False:
+	elif math.isnan(input) is not False:
 		print("Hey, Dude, try using a number this time!")
 	else:
-		while usernum >= 1000:
+		while input >= 1000:
 			RomanString= RomanString +"M"
-			usernum -=1000
-		while usernum >= 500:
-			if usernum >= 900:
+			input -=1000
+		while input >= 500:
+			if input >= 900:
 				RomanString= RomanString +"CM"
-				usernum -= 900
+				input -= 900
 			else:
 				RomanString= RomanString +"D"
-				usernum -= 500
-		while usernum >= 100:
-			if usernum >= 400:
+				input -= 500
+		while input >= 100:
+			if input >= 400:
 				RomanString= RomanString +"CD"
-				usernum -= 400
+				input -= 400
 			else:
 				RomanString= RomanString +"C"
-				usernum -= 100
-		while usernum >= 50:
-			if usernum >= 90:
+				input -= 100
+		while input >= 50:
+			if input >= 90:
 				RomanString= RomanString +"XC"
-				usernum -= 90
+				input -= 90
 			else:
 				RomanString= RomanString +"L"
-				usernum -= 50
-		while usernum >= 10:
-			if usernum >= 40:
+				input -= 50
+		while input >= 10:
+			if input >= 40:
 				RomanString= RomanString +"XL"
-				usernum -= 40
+				input -= 40
 			else:
 				RomanString= RomanString +"X"
-				usernum -= 10
-		while usernum >= 5:
-			if usernum >= 9:
+				input -= 10
+		while input >= 5:
+			if input >= 9:
 				RomanString= RomanString +"IX"
-				usernum -= 9
+				input -= 9
 			else:
 				RomanString= RomanString +"V"
-				usernum -= 5
-		while usernum > 0:
-			if usernum >= 4:
+				input -= 5
+		while input > 0:
+			if input >= 4:
 				RomanString= RomanString +"IV"
-				usernum -= 4
+				input -= 4
 			else:
 				RomanString= RomanString +"I"
-				usernum -= 1
-		print("Your original number was: ")
+				input -= 1
 		print(ognum)
-		print("Your Roman number is: " + RomanString)
+		print(RomanString)
 		RomanString = ""
