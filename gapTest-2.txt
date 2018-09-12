@@ -1,0 +1,6 @@
+def solution(N):
+    gaps = "{0:b}".format(N).split('1')[1:-1]
+    return len(max(gaps)) if gaps else 0
+testNum = 1041
+test = solution(testNum)
+print(test)
