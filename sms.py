@@ -23,18 +23,24 @@ def solution(S, K):
         #if yes, take snippet and strip
         # if no, reverse iterate through snippet to next whitespace and clip there
         #final if, if last, count and stop - problem, if long word or short K, could f things up...
-        if copyS.find("") == 0 and len(copyS) <=K:
-                count = count +1
-                print("Last Segment:" + copyS)
-                print("STRING OVER")
-                copyS =""
-                run = False
-        snippet = copyS[:K]
-        snippet.strip()
-        print("First Snippet of S: " + snippet)
-        snipLen = len(snippet)
-        csLen = 0;#clipped snippet length
-        for v in range(snipLen-1, -1, -1):
+        if len(copyS) <=K:#doing this first to avoid overhead (?) - <REMOVED no whitespace AND> length of decrementing string <= K (logic fuzzy here I think)
+                #all we should need care about here is that the remainder of copyS is less/equal to K
+                count = count +1#increment
+                print("Last Segment:" + copyS)#debug - this is the last segment
+                print("STRING OVER")#string is done!
+                copyS =""#blizt copyS
+                run = False#turn off while
+        snippet = copyS[:K]#copy the first K elements of copyS to a new string
+        if snippet[K-1]==" " or copyS[K]==" ":
+            #Do Stuff - take whole K of copy S, strip bookend whitespace, and crunch...
+        #else: don't need conditions, otherwise back up to prior whitespace and clip
+        #note to self - do I need a conditional to handle long words (if K is short for example) to hyphenate? Not a bad idea...
+        #(if snippet doesn't contain any whitespaces only letters/nums, clip at K-2, sub hyphen at k-1...bit tricky but doable)
+        snippet.strip()#strip off lead/trailing whitespace
+        print("First Snippet of S: " + snippet)# debug, here's the snippet
+        snipLen = len(snippet)#get length of snippet
+        csLen = 0;#clipped snippet length, initialized to 0
+        for v in range(snipLen-1, -1, -1):#for range = len snippet -1, iterate until v = 0 in steps of -1 
             if snippet[v] == " ":
                 snippet = snippet[:v+1]
                 print("Clipped snippet: " + snippet)
