@@ -30,26 +30,40 @@ def solution(S, K):
                 print("STRING OVER")#string is done!
                 copyS =""#blizt copyS
                 run = False#turn off while
-        snippet = copyS[:K]#copy the first K elements of copyS to a new string
-        if snippet[K-1]==" " or copyS[K]==" ":
+        #snippet = copyS[:K]#copy the first K elements of copyS to a new string
+        if len(copyS) > K:
+            snippet = copyS[:K-1]
+            if snippet[len(snippet)-1]==" " or copyS[K]==" ":
+                snippet = copyS[:K-1]
+                snippet.strip()
+                copyS = copyS[K-1:]
+                print("Whole snippet = "+ snippet)
+                count = count +1
+        elif " " in snippet == False:
+            snippet = copyS[:K-1]
+            snippet[K-1]="-"
+            snippet.strip()
+            print("hyphenated snippet: " + snippet)
+            copyS = copyS[K-2:]
+            print ("Remainder of S: " + copyS)
+            count = count +1
             #Do Stuff - take whole K of copy S, strip bookend whitespace, and crunch...
         #else: don't need conditions, otherwise back up to prior whitespace and clip
         #note to self - do I need a conditional to handle long words (if K is short for example) to hyphenate? Not a bad idea...
         #(if snippet doesn't contain any whitespaces only letters/nums, clip at K-2, sub hyphen at k-1...bit tricky but doable)
-        snippet.strip()#strip off lead/trailing whitespace
-        print("First Snippet of S: " + snippet)# debug, here's the snippet
-        snipLen = len(snippet)#get length of snippet
-        csLen = 0;#clipped snippet length, initialized to 0
-        for v in range(snipLen-1, -1, -1):#for range = len snippet -1, iterate until v = 0 in steps of -1 
-            if snippet[v] == " ":
-                snippet = snippet[:v+1]
-                print("Clipped snippet: " + snippet)
-                csLen = len(snippet)
-                count = count + 1
-                print("Count: " + str(count))
-                copyS = copyS[csLen:]
-                print("Remainder of S:" + copyS)
-                break
+        else:
+            snipLen = len(snippet)#get length of snippet
+            csLen = 0;#clipped snippet length, initialized to 0
+            for v in range(snipLen-1, -1, -1):#for range = len snippet -1, iterate until v = 0 in steps of -1 
+                if snippet[v] == " ":
+                    snippet = snippet[:v+1]
+                    print("Clipped snippet: " + snippet)
+                    csLen = len(snippet)
+                    count = count + 1
+                    print("Count: " + str(count))
+                    copyS = copyS[csLen:]
+                    print("Remainder of S:" + copyS)
+                    break
         #z = z + 1
     return count
     pass
